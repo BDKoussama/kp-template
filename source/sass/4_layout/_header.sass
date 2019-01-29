@@ -1,0 +1,64 @@
+/* Header */
+header
+    height: 80px
+    width: 100%
+    position: absolute
+    z-index: 9999 !important
+    top: 0
+.navbar 
+    display: flex
+    flex-direction: row 
+    justify-content: space-between
+    align-items: center
+    padding: 1em 0.5em
+.nav-list
+    white-space: nowrap
+    
+.nav-item
+    display: inline-block
+    margin: 0 1.5em
+    color: $white
+    font-weight: 600
+    position: relative
+    a 
+        //cursor: none !important
+.right-nav
+    height: 40px
+    display: flex
+    flex-direction: row
+    z-index: 9999 !important
+    justify-content: space-between
+    align-items: center
+    .menu-icon
+        cursor: pointer
+        height: 40px
+        width: 40px
+        display: flex
+        background: $mainColor
+        border-radius: 50%
+        flex-direction: column
+        justify-content: center
+        visibility: hidden
+        align-items: center
+        &.clicked
+            .first
+                transform: rotate(-45deg) 
+                margin: 0
+
+            .second
+                transform: rotate(45deg)
+                margin: 0
+    .first,
+    .second
+        height: 1px 
+        width: 25px
+        background: $white
+        margin: 0.2em 0 
+        transition: all 0.4s ease-in-out
+    
+@media only screen and (min-device-width : 320px) and (max-device-width : 780px) 
+    .right-nav
+        .menu-icon
+            visibility: visible
+        nav 
+            display: none

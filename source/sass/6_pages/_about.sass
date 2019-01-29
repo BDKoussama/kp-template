@@ -1,0 +1,118 @@
+.section-title
+    margin-top: 15em
+    display: inline-block
+    padding: 0 1em
+    position: relative
+    overflow: hidden
+    h1 
+        margin: 0.1em 0
+.about-biography
+    position: relative
+    margin-top: 8em
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: flex-start  
+.about-text
+    width: 60%
+    padding: 0 2.5em
+    p
+        text-align: justify
+        font-weight: 500
+        margin-left: 0.5em
+        margin-top: 1em
+        margin-bottom: 0
+.hero-name
+    width: 40%
+    .h-name
+        position: relative
+        overflow: hidden
+        h1 
+            margin: 0.2em 0
+    .h-layer
+        position: absolute
+        top: 0 
+        height: 100%
+        width: 100%
+        background: $white
+        opacity: 0
+    .h-greeting
+        background: $mainColor
+        display: inline-block
+        font-weight: 600
+        overflow: hidden
+        padding: 0 0.3em
+        p 
+            margin: 0   
+            font-weight: 600
+        
+    .h-job 
+        padding: 0 0.5em
+.services-wrapper
+    height: 100%
+    width: 1300px
+    //border: 1px solid red 
+    overflow: hidden
+.services
+    width: 1500px
+    display: flex
+    flex-direction: row 
+    margin: 10em 0em
+    transform: translateX(-35%)
+    .service
+        height: 200Px 
+        width: 100%
+        margin: 0.2em
+        text-align: center
+        vertical-align: middle
+        -webkit-text-stroke: 2px #fff
+        color: transparent
+        h1 
+            font-size: 50px
+.contact-section
+    margin: 10em 0
+    display: flex
+    flex-direction: row 
+    justify-content: flex-start
+    .contact-message 
+        margin-left: auto
+        width: 55%
+    p 
+        font-weight: 500
+        margin: 0
+    .talk 
+        color: $mainColor
+
+/* Media Queries */ 
+@media only screen and (min-device-width : 320px) and (max-device-width : 780px) 
+    .about-biography
+        padding: 1.5em 
+        margin-top: 2em
+    .about-biography
+        flex-wrap: wrap     
+    .hero-name 
+        width: 100%
+    .about-text 
+        width: 100%
+        padding: 0
+        margin-top: 2em
+    .about-biography
+        flex-wrap: wrap     
+    .hero-name 
+        width: 100%
+    .about-text 
+        width: 100%
+        padding: 0
+        margin-top: 2em
+    .contact-section
+        padding: 2.4em
+        margin: 2em
+        .contact-message 
+            margin: 0   
+            width: 100%
+    .services 
+        margin: 5em
+        .service
+            height: 100px
+    .services-wrapper
+        width: 320px

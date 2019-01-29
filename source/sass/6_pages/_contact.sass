@@ -1,0 +1,27 @@
+.contact-info
+    margin: 5em 0
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-end
+    padding: 2em
+.contact-message
+    width: 60%
+.contact-data
+    height: 300px
+    width: 60%
+    display: grid 
+    grid-template-columns: 1fr 1fr
+    grid-template-rows: 1fr 1fr
+    .contact-data-item
+        grid-area: auto
+        padding: 1em 0
+        p 
+            color: $silver
+/* Media Queries */ 
+@media screen and (max-width: 750px)
+    .contact-message,
+    .contact-data
+        width: 100%
+    .contact-message
+        margin-bottom: 2em

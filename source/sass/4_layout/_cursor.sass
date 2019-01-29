@@ -1,2 +1,44 @@
+/*--Example 2--*/
+.cursor 
+	position: absolute
+	background-color: $white
+	width: 7px
+	height: 7px
+	border-radius: 100%
+	z-index: 1
+	transition: 0.3s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform, 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacit
+	user-select: none
+	pointer-events: none
+	z-index: 10000
+	transform: scale(1)
 
-	
+.cursor.active 
+	opacity: 0.5
+
+.cursor.hovered 
+	opacity: 0.08
+
+
+.follower
+	position: absolute
+	width: 20px
+	height: 20px
+	border: 1px solid $white
+	border-radius: 100%
+	z-index: 1
+	transition: 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform, 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacity
+	user-select: none
+	pointer-events: none
+	z-index: 10000
+	transform: translate(5px, 5px)
+
+.follower.active 
+	opacity: 0.7
+	transform: scale(2.5)
+
+.follower.hovered 
+	opacity: 0.08
+@media only screen and (min-device-width : 320px) and (max-device-width : 780px) 
+	.cursor,
+	.follower 
+		display: none 

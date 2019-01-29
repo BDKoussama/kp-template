@@ -1,4 +1,28 @@
-import { TweenLite} from 'gsap';
+import {
+  TimelineMax,
+  TweenMax,
+  SlowMo,
+  TweenLite,
+  Power3,
+  Circ
+} from 'gsap' ;
+import Barba from 'barba.js';
+import SlideShow from './modules/SlideShow';
+import Cursor from './modules/Cursor' ; 
+import Carousel from './modules/Carousel' ; 
+document.addEventListener("DOMContentLoaded", function (event) {
+
+    // Barbajs Initialisation ***********************//
+    Barba.Pjax.Cache.reset()
+    Barba.Pjax.init();
+    Barba.Prefetch.init();
+    Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container) {
+        //const slideShow = container.querySelector('.viewport').getAttribute('data-page') === 'index-page' ? new SlideShow(container.querySelector('.main-content')) : null;
+        //const carousel = container.querySelector('.viewport').getAttribute('data-page') === 'works-page' ? new Carousel(container.querySelector('.carousel-holder')) : null ; 
+        //const cursor = new Cursor()
+    });
+
+
 var html = document.documentElement;
 var body = document.body;
 
@@ -68,3 +92,4 @@ function onResize() {
   }
 }
 
+});

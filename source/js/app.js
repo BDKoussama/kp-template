@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //window.addEventListener("load", onLoad);
     onLoad() 
     function onLoad() {
-      console.log('Loaded');
       updateScroller();
       window.focus();
       window.addEventListener("resize", onResize);
@@ -173,10 +172,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
       tl.to(this.oldContainer, 1.2, {
         opacity: 0
       }, 'start');
-      //tl.add('start');
+      tl.add('next');
       tl.to(this.newContainer, 1, {
         opacity: 1
-      }, '+=start');
+      }, 'next');
     }
   });
 
@@ -211,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       return deferred.promise;
     },
 
-    display: function () {
+    display: function () {  
       var _this = this;
       var tl = new TimelineMax({
         onComplete: function () {

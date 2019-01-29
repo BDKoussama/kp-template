@@ -1,0 +1,84 @@
+html
+  // border-box box model allows us to add padding and border to our elements without increasing their size
+  box-sizing: border-box
+  // WAT IS THIS?!
+  // We inherit box-sizing: border-box; from our <html> selector
+*,
+*:before,
+*:after
+  box-sizing: inherit
+
+
+body
+  //delete the background to apply your own style
+  font-size: 14px
+  line-height: 1.6
+  font-family: 'Montserrat', sans-serif
+  background: $black
+  overflow-x: hidden
+  overflow-y: scroll
+
+
+body::-webkit-scrollbar 
+    width: 0.5em
+    background: $black
+
+body::-webkit-scrollbar-track 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+ 
+body::-webkit-scrollbar-thumb 
+  background-color: $mainColor
+  outline: 1px solid slategrey
+
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus 
+    outline: none
+
+
+.wrapper
+  width: 100%
+  max-width: 1100px
+  margin: 0 auto
+  padding: 0 1.2em
+section
+  display: -webkit-box
+
+ul 
+  margin: 0 
+  padding: 0 
+li 
+  list-style-type: none 
+  margin: 0
+.hidden
+    position: absolute
+    overflow: hidden
+    width: 0
+    height: 0
+    pointer-events: none
+.icon
+    display: inline-block
+    width: 3rem
+    height: 3rem
+    fill: $white
+.icon-social
+    display: inline-block
+    width: 1rem
+    height: 1rem
+    transition: fill 0.4s ease-in-out
+    fill: $white
+    &:hover
+      fill: $mainColor
+.cover
+    height: 100%
+    width: 100%
+    position: fixed
+    top: 0
+    z-index: 99999 !important
+    background: $white
+    transform: translateX(-120%)
+@media only screen and (min-device-width : 320px) and (max-device-width : 780px) 
+    body 
+      overflow-x: hidden

@@ -9,6 +9,7 @@ class Carousel {
         this.midScreen = this.wScreen /2 ; 
         this.isAnimating = false ; 
         this.itemsLenght = this.carouselItems.length;
+        this.el.style.width = `${this.itemsLenght * 100}vw`;
         this.count = 1 ; 
         this.init();
     }

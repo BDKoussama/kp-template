@@ -10,19 +10,19 @@ import Barba from 'barba.js';
 import SlideShow from './modules/SlideShow';
 import Cursor from './modules/Cursor';
 import Carousel from './modules/Carousel';
+
 document.addEventListener("DOMContentLoaded", function (event) {
-  var html = document.documentElement;
-  var body = document.body;
   // Barbajs Initialisation ***********************//
   Barba.Pjax.Cache.reset()
   Barba.Pjax.init();
   Barba.Prefetch.init();
+
   Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container) {
     const slideShow = container.querySelector('.viewport').getAttribute('data-page') === 'index-page' ? new SlideShow(container.querySelector('.main-content')) : null;
-    //const carousel = container.querySelector('.viewport').getAttribute('data-page') === 'works-page' ? new Carousel(container.querySelector('.carousel-holder')) : null ; 
+    const carousel = container.querySelector('.viewport').getAttribute('data-page') === 'works-page' ? new Carousel(container.querySelector('.carousel-holder')) : null ; 
     const cursor = new Cursor();
-    
-
+    var html = document.documentElement;
+    var body = document.body;
     var scroller = {
       target: container.querySelector("#scroll-container"),
       ease: 0.05, // <= scroll speed
@@ -31,23 +31,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
       resizeRequest: 1,
       scrollRequest: 0,
     };
-
     var requestId = null;
 
     TweenLite.set(scroller.target, {
       rotation: 0.01,
       force3D: true
     });
-
-    //window.addEventListener("load", onLoad);
-    onLoad() 
     function onLoad() {
+      console.log('onload : ' , getNewPageFile().url )
+      setTimeout(() => onResize() , 100);
       updateScroller();
       window.focus();
       window.addEventListener("resize", onResize);
       document.addEventListener("scroll", onScroll);
     }
-
+    onLoad() ;
     function updateScroller() {
 
       var resized = scroller.resizeRequest > 0;
@@ -59,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       }
 
       var scrollY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
-
+      
       scroller.endY = scrollY;
       scroller.y += (scrollY - scroller.y) * scroller.ease;
 
@@ -74,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
       requestId = scroller.scrollRequest > 0 ? requestAnimationFrame(updateScroller) : null;
     }
-
     function onScroll() {
       scroller.scrollRequest++;
       if (!requestId) {
@@ -96,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   window.addEventListener('scroll', () => {
     let servicesPosition = Math.round($(window).scrollTop() / $(window).height() * 25);
-    TweenMax.to('.services', 3, {
+    TweenMax.to('.services', 2.4 , {
       xPercent: servicesPosition,
       ease: Circ.easeOut
     })

@@ -200,14 +200,14 @@ body {
   overflow-y: scroll; }
 
 body::-webkit-scrollbar {
-  width: 0.5em;
+  width: 0.3em;
   background: #0a0a0a; }
 
 body::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #df020a;
+  background-color: #282727;
   outline: 1px solid slategrey; }
 
 input:focus,
@@ -850,6 +850,7 @@ header {
 .services-wrapper {
   height: 100%;
   width: 1300px;
+  margin: 0 auto;
   overflow: hidden; }
 
 .services {
@@ -861,7 +862,7 @@ header {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin: 10em 0em;
+  margin: 8em 0em;
   -webkit-transform: translateX(-35%);
           transform: translateX(-35%); }
   .services .service {
@@ -876,7 +877,7 @@ header {
       font-size: 50px; }
 
 .contact-section {
-  margin: 10em 0;
+  margin: 5em 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1124,3 +1125,60 @@ header {
     width: 100%; }
   .contact-message {
     margin-bottom: 2em; } }
+
+.carousel-holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 0;
+  height: 100vh; }
+
+.carousel-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: relative; }
+
+.box {
+  height: 60%;
+  width: 60%;
+  position: absolute; }
+
+.trigger {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: none; }
+  .trigger .icon {
+    width: 1.3rem;
+    height: 1.3rem; }
+
+.trigger-next {
+  right: 5%;
+  -webkit-transform: rotate(-180deg);
+          transform: rotate(-180deg); }
+
+.trigger-prev {
+  left: 5%; }
+
+.carousel-item .box {
+  background: center no-repeat;
+  background-size: cover; }
+  .carousel-item .box:hover {
+    cursor: crosshair; }

@@ -1130,16 +1130,27 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 0;
-  height: 100vh; }
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  overflow: scroll; }
 
-.carousel-item {
+.swiper-container {
+  width: 100%;
+  height: 60vh;
+  overflow: hidden; }
+
+.swiper-slide {
+  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1149,36 +1160,11 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  position: relative; }
-
-.box {
-  height: 60%;
-  width: 60%;
-  position: absolute; }
-
-.trigger {
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  cursor: none; }
-  .trigger .icon {
-    width: 1.3rem;
-    height: 1.3rem; }
-
-.trigger-next {
-  right: 5%;
-  -webkit-transform: rotate(-180deg);
-          transform: rotate(-180deg); }
-
-.trigger-prev {
-  left: 5%; }
-
-.carousel-item .box {
-  background: center no-repeat;
-  background-size: cover; }
-  .carousel-item .box:hover {
-    cursor: crosshair; }
+  position: relative;
+  width: auto;
+  background-color: #eaeaea; }
+  .swiper-slide__img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover; }

@@ -5,6 +5,7 @@
     <title>Document</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
     <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 
@@ -166,33 +167,32 @@
             <div class="viewport" data-page='works-page'>
                 <div id="scroll-container" class="scroll-container">
                     <div class="carousel-holder">
-                        <div class="carousel-item carousel-item1">
-                            <a href="#" class="box" style="background-image : url(./assets/img/p01/a02.jpg)"></a>
+                        <!-- Swiper -->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img class="swiper-slide__img lazyload" src="./assets/img/p01/a02.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="swiper-slide__img lazyload" src="./assets/img/p02/b01.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide ">
+                                    <img class="swiper-slide__img lazyload" src="./assets/img/p03/c01.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide ">
+                                    <img class="swiper-slide__img lazyload" src="./assets/img/p02/b04.jpg" alt="">
+                                </div>
+                            </div>
+                            <!-- Add Arrows -->
+                            <a href="#">
+                                <div class="swiper-button-next"></div>
+                            </a>
+                            <a href="#" id="">
+                                <div class="swiper-button-prev"></div>
+                            </a>
                         </div>
-
-                        <div class="carousel-item carousel-item2">
-                            <a href="#" class="box" style="background-image : url(./assets/img/p02/b01.jpg)"></a>
-                        </div>
-
-                        <div class="carousel-item carousel-item3">
-                            <a href="#" class="box" style="background-image : url(./assets/img/p03/c01.jpg)"></a>
-                        </div>
-
+                        <!-- Swiper JS -->
                     </div>
-                    <a href='#' class="trigger trigger-prev">
-                        <span class="left-arrow">
-                            <svg class="icon icon-social">
-                                <use xlink:href="#arrow-icon"></use>
-                            </svg>
-                        </span>
-                    </a>
-                    <a href='#' class="trigger trigger-next">
-                        <span class="right-arrow">
-                            <svg class="icon icon-social">
-                                <use xlink:href="#arrow-icon"></use>
-                            </svg>
-                        </span>
-                    </a>
                 </div>
             </div>
         </div>

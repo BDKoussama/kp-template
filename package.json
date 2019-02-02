@@ -52,6 +52,7 @@
     "gh-pages": "^1.2.0",
     "gsap": "^2.0.2",
     "gulp-postcss": "^7.0.1",
-    "gulp-uglify-es": "^1.0.4"
+    "gulp-uglify-es": "^1.0.4",
+    "swiper": "^4.4.6"
   }
 }

@@ -25,7 +25,7 @@ class Cursor {
         });
     }
     tween() {
-        TweenMax.to({}, 0.016, {
+        TweenMax.to({}, 0.01 , {
             repeat: -1,
             onRepeat: () => this.cb()
         });

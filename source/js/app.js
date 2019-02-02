@@ -9,7 +9,6 @@ import {
 import Barba from 'barba.js';
 import SlideShow from './modules/SlideShow';
 import Cursor from './modules/Cursor';
-import Carousel from './modules/Carousel';
 import Swiper from 'swiper';
 document.addEventListener("DOMContentLoaded", function (event) {
   // Barbajs Initialisation ***********************//
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container) {
     const slideShow = container.querySelector('.viewport').getAttribute('data-page') === 'index-page' ? new SlideShow(container.querySelector('.main-content')) : null;
-    //const carousel = container.querySelector('.viewport').getAttribute('data-page') === 'works-page' ? new Carousel(container.querySelector('.carousel-holder')) : null ; 
     var swiper = container.querySelector('.viewport').getAttribute('data-page') === 'works-page' ?  new Swiper(container.querySelector('.swiper-container'), {
       loop: true,
       slidesPerView: 2,

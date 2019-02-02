@@ -820,6 +820,9 @@ header {
     margin-left: 0.5em;
     margin-top: 1em;
     margin-bottom: 0; }
+  .about-text .social-media > li {
+    display: inline-block;
+    margin-right: 0.5em; }
 
 .hero-name {
   width: 40%; }
@@ -1126,7 +1129,7 @@ header {
   .contact-message {
     margin-bottom: 2em; } }
 
-.carousel-holder {
+.swiper-holder {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1168,3 +1171,9 @@ header {
     height: 100%;
     -o-object-fit: cover;
        object-fit: cover; }
+
+.swiper-button-next {
+  right: 50px; }
+
+.swiper-button-prev {
+  left: 50px; }

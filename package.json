@@ -53,6 +53,7 @@
     "gsap": "^2.0.2",
     "gulp-postcss": "^7.0.1",
     "gulp-uglify-es": "^1.0.4",
-    "swiper": "^4.4.6"
+    "swiper": "^4.4.6",
+    "vanilla-lazyload": "^8.17.0"
   }
 }

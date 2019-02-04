@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
       },
     }) : null ;
     const cursor = new Cursor();
-
     var html = document.documentElement;
     var body = document.body;
     var scroller = {

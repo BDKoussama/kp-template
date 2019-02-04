@@ -74,6 +74,33 @@
     .text-gray 
         color: $silver
         width: 100px
+.content
+  width: 100%
+  padding-top: 50px
+  overflow: hidden
+
+.img-container 
+  transform: scale(0.9)
+  height: 90vh
+  width: 100vw
+  margin:  0 0 50px 0 
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: cover
+.img-container--double 
+    display: flex 
+    flex-direction: row 
+    justify-content: space-between
+    height: 100vh
+    transform: scale(0.9)
+    margin:  0 0 50px 0 
+    .first-img,
+    .second-img
+        width: 45%
+        display: flex
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: cover
 
 .project-gallery
     display: flex
@@ -99,11 +126,8 @@
 .projects-nav
     text-align: center
     padding: 1.5em 0
+    margin-bottom: 10em
 
-.video-wrapper 
-    height: 100%
-    margin: 100%
-    margin: 0 auto
 /* Media Queries */ 
 @media screen and (max-width: 750px)
     .about 

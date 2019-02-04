@@ -26,12 +26,27 @@ document.addEventListener("DOMContentLoaded", function (event) {
       loop: true,
       slidesPerView: 2,
       spaceBetween: 40,
+      speed: 1000,
       centeredSlides: true,
+      breakpoints: {
+        500:{
+            slidesPerView: 1,
+        },
+        mousewheel: {
+          invert: true,
+        },
+       },
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      on: {
+        init: function() {
+          myLazyLoad.update();
+        }
+      }
     }) : null;
+    swiper.mousewheel.enable();	
     const cursor = new Cursor();
     var html = document.documentElement;
     var body = document.body;

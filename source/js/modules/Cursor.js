@@ -1,20 +1,26 @@
+import {
+    runInThisContext
+} from "vm";
+
 class Cursor {
     constructor() {
         this.cursor = document.querySelector('.cursor');
         this.follower = document.querySelector('.follower');
+        this.clientX = -100;
+        this.clienty = -100;
         this.posX = 0;
         this.posY = 0;
-        this.mouseX = 0;
-        this.mouseY = 0;
+        this.mouseX = -100;
+        this.mouseY = -100;
         this.initEvents();
     }
-    cb() {
+    reRender() {
         this.posX += (this.mouseX - this.posX) / 9;
         this.posY += (this.mouseY - this.posY) / 9;
         TweenMax.set(this.follower, {
             css: {
-                left: this.posX - 12,
-                top: this.posY - 12
+                left: this.posX - 15,
+                top: this.posY - 15
             }
         });
         TweenMax.set(this.cursor, {
@@ -25,16 +31,16 @@ class Cursor {
         });
     }
     tween() {
-        TweenMax.to({}, 0.01 , {
+        TweenMax.to({}, 0.01, {
             repeat: -1,
-            onRepeat: () => this.cb()
+            onRepeat: () => this.reRender()
         });
     }
     initEvents() {
         this.tween();
         document.addEventListener("mousemove", (e) => {
-            this.mouseX = e.pageX;
-            this.mouseY = e.pageY;
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
         });
 
         [...document.querySelectorAll('a[href]')].forEach((link) => {
@@ -47,9 +53,9 @@ class Cursor {
                 this.follower.classList.remove('active')
             });
         });
-
-
     }
+
 }
 
-export default Cursor ; 
+
+export default Cursor;

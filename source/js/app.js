@@ -42,11 +42,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
       },
       on: {
         init: function() {
-          myLazyLoad.update();
+          console.log(this);
+          this.mousewheel.enable();	
         }
       }
     }) : null;
-    swiper.mousewheel.enable();	
     const cursor = new Cursor();
     var html = document.documentElement;
     var body = document.body;
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         body.style.height = height + "px";
         scroller.resizeRequest = 0;
       }
-
+      
       var scrollY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
 
       scroller.endY = scrollY;
@@ -122,8 +122,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   let isAnimating = false;
 
   window.addEventListener('scroll', () => {
-    let servicesPosition = Math.round($(window).scrollTop() / $(window).height() * 25);
-    TweenMax.to('.services', 2.4, {
+    let servicesPosition = Math.round($(window).scrollTop() / $(window).height() * 30);
+    TweenMax.to('.services', 2 , {
       xPercent: servicesPosition,
       ease: Circ.easeOut
     })

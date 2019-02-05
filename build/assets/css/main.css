@@ -548,16 +548,12 @@ header {
 
 /*--Example 2--*/
 .cursor {
-  position: absolute;
+  position: fixed;
   background-color: #fff;
   width: 7px;
   height: 7px;
   border-radius: 100%;
   z-index: 1;
-  -webkit-transition: 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacit, 0.3s cubic-bezier(0.75, -1.27, 0.3, 2.33) -webkit-transform;
-  transition: 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacit, 0.3s cubic-bezier(0.75, -1.27, 0.3, 2.33) -webkit-transform;
-  transition: 0.3s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform, 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacit;
-  transition: 0.3s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform, 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacit, 0.3s cubic-bezier(0.75, -1.27, 0.3, 2.33) -webkit-transform;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -565,7 +561,9 @@ header {
   pointer-events: none;
   z-index: 10000;
   -webkit-transform: scale(1);
-          transform: scale(1); }
+          transform: scale(1);
+  left: 0;
+  top: 0; }
 
 .cursor.active {
   opacity: 0.5; }
@@ -574,16 +572,12 @@ header {
   opacity: 0.08; }
 
 .follower {
-  position: absolute;
+  position: fixed;
   width: 20px;
   height: 20px;
   border: 1px solid #fff;
   border-radius: 100%;
   z-index: 1;
-  -webkit-transition: 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacity, 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) -webkit-transform;
-  transition: 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacity, 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) -webkit-transform;
-  transition: 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform, 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacity;
-  transition: 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) transform, 0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacity, 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33) -webkit-transform;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -591,12 +585,16 @@ header {
   pointer-events: none;
   z-index: 10000;
   -webkit-transform: translate(5px, 5px);
-          transform: translate(5px, 5px); }
+          transform: translate(5px, 5px);
+  -webkit-transition: 0.3s ease-out transform, 0.2s  ease-out all;
+  transition: 0.3s ease-out transform, 0.2s  ease-out all;
+  left: 0;
+  top: 0; }
 
 .follower.active {
   opacity: 0.7;
-  -webkit-transform: scale(2.5);
-          transform: scale(2.5); }
+  -webkit-transform: scale(2.5) !important;
+          transform: scale(2.5) !important; }
 
 .follower.hovered {
   opacity: 0.08; }

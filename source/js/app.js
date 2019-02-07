@@ -4,6 +4,7 @@ import {
   SlowMo,
   TweenLite,
   Power3,
+  Power0,
   Circ
 } from 'gsap';
 import Barba from 'barba.js';
@@ -12,17 +13,25 @@ import Cursor from './modules/Cursor';
 import Swiper from 'swiper';
 import LazyLoad from "vanilla-lazyload";
 
+// onDom content load event 
 document.addEventListener("DOMContentLoaded", function (event) {
+
   // Barbajs Initialisation ***********************//
   Barba.Pjax.Cache.reset()
   Barba.Pjax.init();
   Barba.Prefetch.init();
+  // init Custom cursor 
+  const cursor = new Cursor();
+  // on new page ready barba.Js Event
   Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container) {
+    // update all links for the hover effect 
+    cursor.getLinks();
+    // init homa page slide show 
     const slideShow = container.querySelector('.viewport').getAttribute('data-page') === 'index-page' ? new SlideShow(container.querySelector('.main-content')) : null;
-    var myLazyLoad = new LazyLoad({
-      elements_selector: ".lazy"
-    });
-    var swiper = container.querySelector('.viewport').getAttribute('data-page') === 'works-page' ? new Swiper(container.querySelector('.swiper-container'), {
+    // init lazy load images  
+    let myLazyLoad = new LazyLoad({ elements_selector: ".lazy" });
+    // init Swiper js 
+    let swiper = container.querySelector('.viewport').getAttribute('data-page') === 'works-page' ? new Swiper(container.querySelector('.swiper-container'), {
       loop: true,
       slidesPerView: 2,
       spaceBetween: 40,
@@ -42,23 +51,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
       },
       on: {
         init: function() {
-          console.log(this);
           this.mousewheel.enable();	
         }
       }
     }) : null;
-    const cursor = new Cursor();
-    var html = document.documentElement;
-    var body = document.body;
-    var scroller = {
-      target: container.querySelector("#scroll-container"),
+    let html = document.documentElement;
+    let body = document.body;
+    let scroller = {
+      target: container.querySelector("#scroll-container"), // scroll container 
       ease: 0.05, // <= scroll speed
       endY: 0,
       y: 0,
       resizeRequest: 1,
       scrollRequest: 0,
     };
-    var requestId = null;
+    let requestId = null;
 
     TweenLite.set(scroller.target, {
       rotation: 0.01,
@@ -66,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     function onLoad() {
-      console.log('onload : ', getNewPageFile().url)
       setTimeout(() => onResize(), 100);
       updateScroller();
       window.focus();
@@ -77,15 +83,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function updateScroller() {
 
-      var resized = scroller.resizeRequest > 0;
+      let resized = scroller.resizeRequest > 0;
 
       if (resized) {
-        var height = scroller.target.clientHeight;
+        let height = scroller.target.clientHeight;
         body.style.height = height + "px";
         scroller.resizeRequest = 0;
       }
-      
-      var scrollY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
+
+      let scrollY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
 
       scroller.endY = scrollY;
       scroller.y += (scrollY - scroller.y) * scroller.ease;
@@ -115,17 +121,29 @@ document.addEventListener("DOMContentLoaded", function (event) {
         requestId = requestAnimationFrame(updateScroller);
       }
     }
+    let allLinks = Array.from(document.querySelectorAll('a[href]'));
+
+
+  let preventSameLinkClick = function (e) {
+    if (e.currentTarget.href === window.location.href || isAnimating) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+  console.log(allLinks);
+  for(var i = 0; i < allLinks.length; i++) {
+    allLinks[i].addEventListener('click', preventSameLinkClick);
+  }
   });
 
   // *********************************************// 
-  let links = document.querySelectorAll('a[href]');
   let isAnimating = false;
-
+  // Services Horizontal scroll ( About section )
   window.addEventListener('scroll', () => {
     let servicesPosition = Math.round($(window).scrollTop() / $(window).height() * 30);
     TweenMax.to('.services', 2 , {
       xPercent: servicesPosition,
-      ease: Circ.easeOut
+      ease: Power0.easeNone
     })
   })
 
@@ -134,14 +152,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     return Barba.HistoryManager.currentStatus();
   }
 
-  let cbk = function (e) {
-    if (e.currentTarget.href === window.location.href & isAnimating) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
-
-  links.forEach(link => link.addEventListener('click ', cbk))
 
   // Barbajs Transitions ************************* //
 
@@ -149,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     start: function () {
       isAnimating = true;
       Promise
-        .all([this.newContainerLoading, this.scrollTop()])
+        .all([this.newContainerLoading , this.scrollTop()])
         .then(this.display.bind(this));
     },
 
@@ -196,16 +206,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         opacity: 0,
       });
       tl.add('start');
-      tl.to(this.oldContainer, 1.2, {
+      tl.to(this.oldContainer, 0.8 , { // hide old container 
         opacity: 0
       }, 'start');
       tl.add('next');
-      tl.to(this.newContainer, 1, {
+      tl.to(this.newContainer, 0.4 , { // show new Container 
         opacity: 1
       }, 'next');
     }
   });
-
   var ContactTransition = Barba.BaseTransition.extend({
     start: function () {
       isAnimating = true;
@@ -265,11 +274,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
       })
 
       tl.add('start');
-      tl.to(this.oldContainer, 1.2, {
+      tl.to(this.oldContainer, 0.8 , {
         autoAlpha: 0
       }, 'start');
       tl.add('next');
-      tl.to(this.newContainer, 1, {
+      tl.to(this.newContainer, 0.4 , {
         opacity: 1
       }, 'next');
       tl.add('after')
@@ -291,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     start: function () {
       isAnimating = true;
       Promise
-        .all([this.newContainerLoading, this.scrollTop()])
+        .all([this.newContainerLoading , this.scrollTop()])
         .then(this.display.bind(this));
     },
     // scrollTop returns a promise so the before toggling next animation it waits until promise is resolved and scrolltop = 0 
@@ -354,11 +363,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         opacity: 0
       })
       tl.add('start');
-      tl.to(this.oldContainer, 1, {
+      tl.to(this.oldContainer, 0.8 , {
         autoAlpha: 0
       }, 'start');
       tl.add('next');
-      tl.to(this.newContainer, 1, {
+      tl.to(this.newContainer, 0.4 , {
         autoAlpha: 1
       }, 'next');
       tl.add('after')
@@ -388,7 +397,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     start: function () {
       isAnimating = true;
       Promise
-        .all([this.newContainerLoading, this.scrollTop()])
+        .all([this.newContainerLoading , this.scrollTop()])
         .then(this.display.bind(this));
     },
 
@@ -440,11 +449,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
       });
       console.log(bannerImg)
       tl.add('start');
-      tl.to(this.oldContainer, 1.2, {
+      tl.to(this.oldContainer, 0.8, {
         opacity: 0
       }, 'start');
       tl.add('next');
-      tl.to(this.newContainer, 1, {
+      tl.to(this.newContainer, 0.4 , {
         opacity: 1
       }, 'next');
       tl.add('after');
@@ -456,16 +465,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
   Barba.Pjax.getTransition = function () {
+    
     let coverTimeline = new TimelineMax();
     TweenLite.set('.cover', {
       x: '-120%'
     })
     coverTimeline.add('start');
-    coverTimeline.to('.cover', 2, {
+    coverTimeline.to('.cover', 1.2 , {
       x: '120%',
-      ease: SlowMo.ease.config(0.2, 0.5, false),
+      ease: Power0.easeNone,
       force3D: false
     });
+    
     let nextPage = getNewPageFile().url.split('/').pop();
     if (nextPage === 'about.html') {
       return AboutTransition;

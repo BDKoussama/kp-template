@@ -42,7 +42,8 @@ class Cursor {
             this.mouseX = e.clientX;
             this.mouseY = e.clientY;
         });
-
+    }
+    getLinks(){
         [...document.querySelectorAll('a[href]')].forEach((link) => {
             link.addEventListener('mouseenter', () => {
                 this.cursor.classList.add('active');
@@ -54,7 +55,6 @@ class Cursor {
             });
         });
     }
-
 }
 
 

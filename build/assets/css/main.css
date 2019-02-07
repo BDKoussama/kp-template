@@ -260,7 +260,7 @@ li {
 .cover {
   height: 100%;
   width: 100%;
-  position: fixed;
+  position: absolute;
   top: 0;
   z-index: 99999 !important;
   background: #fff;

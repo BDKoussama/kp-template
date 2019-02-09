@@ -465,7 +465,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
 
   Barba.Pjax.getTransition = function () {
-    
+    /*
     let coverTimeline = new TimelineMax();
     TweenLite.set('.cover', {
       x: '-120%'
@@ -476,7 +476,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       ease: Power0.easeNone,
       force3D: false
     });
-    
+    */
     let nextPage = getNewPageFile().url.split('/').pop();
     if (nextPage === 'about.html') {
       return AboutTransition;

@@ -104,8 +104,18 @@
 .projects-nav
     text-align: center
     padding: 1.5em 0
-    margin-bottom: 10em
-
+    margin-bottom: 8em
+.next-project--wrapper
+    display: inline-block
+    padding: 0.5em
+    overflow: hidden
+.next-project--title
+    margin: 0
+    transform: translateY(120%)
+    transition: 0.7s
+#next-project:hover + .next-project--wrapper 
+    .next-project--title
+        transform: translateY(0)
 /* Media Queries */ 
 @media screen and (max-width: 750px)
     .about 

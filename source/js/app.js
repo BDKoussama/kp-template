@@ -140,8 +140,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   let isAnimating = false;
   // Services Horizontal scroll ( About section )
   window.addEventListener('scroll', () => {
-    let servicesPosition = Math.round($(window).scrollTop() / $(window).height() * 30);
-    TweenMax.to('.services', 2 , {
+    let servicesPosition = Math.round( window.scrollY / window.innerHeight * 30);
+    TweenMax.to('.services', 1, {
       xPercent: servicesPosition,
       ease: Power0.easeNone
     })

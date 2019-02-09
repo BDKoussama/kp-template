@@ -863,7 +863,23 @@ header {
 .projects-nav {
   text-align: center;
   padding: 1.5em 0;
-  margin-bottom: 10em; }
+  margin-bottom: 8em; }
+
+.next-project--wrapper {
+  display: inline-block;
+  padding: 0.5em;
+  overflow: hidden; }
+
+.next-project--title {
+  margin: 0;
+  -webkit-transform: translateY(120%);
+          transform: translateY(120%);
+  -webkit-transition: 0.7s;
+  transition: 0.7s; }
+
+#next-project:hover + .next-project--wrapper .next-project--title {
+  -webkit-transform: translateY(0);
+          transform: translateY(0); }
 
 /* Media Queries */
 @media screen and (max-width: 750px) {
@@ -922,6 +938,8 @@ header {
     margin-left: 0.5em;
     margin-top: 1em;
     margin-bottom: 0; }
+  .about-text .social-media {
+    margin-left: 0.5em; }
 
 .social-media > li {
   display: inline-block;

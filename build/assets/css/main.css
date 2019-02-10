@@ -479,6 +479,8 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center; }
+  .right-nav nav {
+    display: none; }
   .right-nav .menu-icon {
     cursor: pointer;
     height: 40px;
@@ -495,7 +497,7 @@ header {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    visibility: hidden;
+    visibility: visible;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center; }
@@ -521,6 +523,56 @@ header {
     visibility: visible; }
   .right-nav nav {
     display: none; } }
+
+/* Overlay */
+.overlay {
+  height: 100vh;
+  width: 100%;
+  background: #000;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 0;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  z-index: -999 !important;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  top: 0; }
+
+.overlay-visible {
+  z-index: 999 !important; }
+
+.overlay-content {
+  display: inline-block; }
+
+.menu-item {
+  text-transform: uppercase;
+  text-align: center;
+  overflow: hidden; }
+  .menu-item h1 {
+    margin: 0.3em 0; }
+  .menu-item .gigantic {
+    font-size: 5em;
+    text-decoration: none;
+    -webkit-text-stroke: 1px #fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: -webkit-gradient(linear, left top, right top, from(#fff), color-stop(50%, #fff), color-stop(50%, #000));
+    background-image: linear-gradient(to right, #fff, #fff 50%, #000 50%);
+    background-size: 200% 100%;
+    background-position: 100%; }
+    .menu-item .gigantic:hover {
+      -webkit-transition: all 0.5s cubic-bezier(0, 0, 0.23, 1);
+      transition: all 0.5s cubic-bezier(0, 0, 0.23, 1);
+      background-position: 0%; }
 
 .footer {
   height: 50px;
@@ -1080,7 +1132,7 @@ header {
 /* Main Content */
 .main-content {
   height: 100vh;
-  z-index: -10;
+  z-index: -10 !important;
   width: 100%;
   position: relative; }
 

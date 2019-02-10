@@ -12,6 +12,7 @@ import SlideShow from './modules/SlideShow';
 import Cursor from './modules/Cursor';
 import Swiper from 'swiper';
 import LazyLoad from "vanilla-lazyload";
+import Modal from './modules/Modal';
 
 // onDom content load event 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -22,10 +23,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
   Barba.Prefetch.init();
   // init Custom cursor 
   const cursor = new Cursor();
+  const modal = new Modal(document.querySelector('.overlay'));
+
   // on new page ready barba.Js Event
   Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container) {
     // update all links for the hover effect 
     cursor.getLinks();
+    // init modal 
+
     // init homa page slide show 
     const slideShow = container.querySelector('.viewport').getAttribute('data-page') === 'index-page' ? new SlideShow(container.querySelector('.main-content')) : null;
     // init lazy load images  
@@ -134,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   for(var i = 0; i < allLinks.length; i++) {
     allLinks[i].addEventListener('click', preventSameLinkClick);
   }
+
   });
 
   // *********************************************// 

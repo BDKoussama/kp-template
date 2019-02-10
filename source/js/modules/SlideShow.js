@@ -1,27 +1,4 @@
-/*
-    const overlay = document.querySelector('.overlay');
-    const menuIcon = document.querySelector('.menu-icon');
-    let overlayHidden = true;
-    const menuItems = Array.from(document.querySelectorAll('.menu-item a'));
-    menuItems.forEach(item => { 
-        item.addEventListener('click', () => animeOverlay());
-    })
-    console.log(menuItems);
-    menuIcon.addEventListener('click', () => animeOverlay());
-    const animeOverlay = () => {
-        overlay.classList.add('overlay-visible');
-        menuIcon.classList.toggle('clicked');
-        anime({
-            targets: overlay,
-            duration: 500,
-            easing: 'easeInOutQuad',
-            opacity: overlayHidden ? 1 : [1, 0]
-        }).finished.then(() => {
-            overlayHidden ? null : overlay.classList.remove('overlay-visible');
-            overlayHidden = !overlayHidden;
-        })
-    }
-    */
+
    import Slide from './Slide';
    class SlideShow {
        constructor(el) {

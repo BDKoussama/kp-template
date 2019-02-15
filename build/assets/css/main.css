@@ -480,7 +480,7 @@ header {
       -ms-flex-align: center;
           align-items: center; }
   .right-nav nav {
-    display: none; }
+    display: auto; }
   .right-nav .menu-icon {
     cursor: pointer;
     height: 40px;
@@ -497,7 +497,7 @@ header {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    visibility: visible;
+    visibility: hidden;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center; }

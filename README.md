@@ -2,6 +2,14 @@
 
 a Static Html & css , Javascript Template with different page transitions and animations . 
 
+![KP Template](https://i.imgur.com/XrmDpX7.jpg)
+
+![KP Tempalte](https://i.imgur.com/qumC320.jpg)
+
+![KP Tempalte](https://i.imgur.com/x4iBCcZ.png)
+
+![KP Tempalte](https://i.imgur.com/4P4RA7f.jpg)
+
 [Demo](https://kp-template.firebaseapp.com/)
 
 ## Credits

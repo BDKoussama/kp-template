@@ -8,6 +8,7 @@ import {
   Circ
 } from 'gsap';
 import Barba from 'barba.js';
+import Scrollbar from 'smooth-scrollbar';
 import SlideShow from './modules/SlideShow';
 import Cursor from './modules/Cursor';
 import Swiper from 'swiper';
@@ -20,8 +21,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
   Barba.Pjax.Cache.reset()
   Barba.Pjax.init();
   Barba.Prefetch.init();
+
   // Image Lazy Load Configuration ----------------------//
-  let lazyLoadConfig = { elements_selector: ".lazy" } ;
+  
   // Swiper js Configuration ----------------------------//
   let swiperConfig = {
     loop: true,
@@ -47,6 +49,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   };
+  // Scrollbar Configuration
+  let scrollbarConfig = {
+    damping:0.03,
+    thumbMinSize : 98
+  };
+  let scrollbar ;
+
   let html = document.documentElement;
   let body = document.body;
   // init Custom cursor ---------------------------------//
@@ -60,75 +69,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // init home page slide show 
     const slideShow = container.getAttribute('data-namespace') === 'home-page' ? new SlideShow(container.querySelector('.main-content')) : null;
     // init lazy load images  
+    let lazyLoadConfig = { 
+      elements_selector: ".lazy" , 
+      container: container.querySelector('.scroll-content') } ;
     let myLazyLoad = new LazyLoad(lazyLoadConfig);
     // init Swiper js 
     let swiper = container.getAttribute('data-namespace') === 'work-page' ? new Swiper(container.querySelector('.swiper-container'), swiperConfig ) : null;
     // Smooth Scroll Configuration -------------------- // 
-    let scroller = {
-      target: container.querySelector("#scroll-container"), // scroll container 
-      ease: 0.05, // <= scroll speed
-      endY: 0,
-      y: 0,
-      resizeRequest: 1,
-      scrollRequest: 0,
-    };
-    let requestId = null;
+    scrollbar = Scrollbar.init(container.querySelector('#main-scrollbar'), scrollbarConfig);
+    let servicesSection = () => {
+        scrollbar.addListener((status) => {
+          let servicesPosition = Math.round(status.offset.y / window.innerHeight * 30);
+          TweenMax.to('.services', 1, {
+            xPercent: servicesPosition,
+            ease: Power0.easeNone,
+            force3D: false
+          })
+        });
+      }    
 
-    TweenLite.set(scroller.target, {
-      rotation: 0.01,
-      force3D: true
-    });
-
-    function onLoad() {
-      setTimeout(() => onResize(), 100);
-      updateScroller();
-      window.focus();
-      window.addEventListener("resize", onResize);
-      document.addEventListener("scroll", onScroll);
-    }
-
-    onLoad();
-
-    function updateScroller() {
-
-      let resized = scroller.resizeRequest > 0;
-
-      if (resized) {
-        let height = scroller.target.clientHeight;
-        body.style.height = height + "px";
-        scroller.resizeRequest = 0;
-      }
-
-      let scrollY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
-
-      scroller.endY = scrollY;
-      scroller.y += (scrollY - scroller.y) * scroller.ease;
-
-      if (Math.abs(scrollY - scroller.y) < 0.05 || resized) {
-        scroller.y = scrollY;
-        scroller.scrollRequest = 0;
-      }
-
-      TweenLite.set(scroller.target, {
-        y: -scroller.y
-      });
-
-      requestId = scroller.scrollRequest > 0 ? requestAnimationFrame(updateScroller) : null;
-    }
-
-    function onScroll() {
-      scroller.scrollRequest++;
-      if (!requestId) {
-        requestId = requestAnimationFrame(updateScroller);
-      }
-    }
-
-    function onResize() {
-      scroller.resizeRequest++;
-      if (!requestId) {
-        requestId = requestAnimationFrame(updateScroller);
-      }
-    }
+      servicesSection();
 
     function onClickLinkCheck() {
       let allLinks = Array.from(document.querySelectorAll('a[href]'));
@@ -148,19 +108,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   });
   // boolean for page Transitions Animation 
   let isAnimating = false;
-  // Services Horizontal scroll ( About section )
-  let servicesSection = () => {
-    window.addEventListener('scroll', () => {
-      let servicesPosition = Math.round(window.scrollY / window.innerHeight * 30);
-      TweenMax.to('.services', 1, {
-        xPercent: servicesPosition,
-        ease: Power0.easeNone,
-        force3D: false
-      })
-    })
-  }
-  // init serviceSection
-  servicesSection();
+
   // function to get the New URL
   let getNewUrl = function () {
     // returns the link File or page ex 2.html
@@ -435,23 +383,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
       },
       scrollTop: function () {
         var deferred = Barba.Utils.deferred();
-        var obj = {
-          y: window.pageYOffset
-        };
-  
-        TweenLite.to(obj, 0.4, {
-          y: 0,
-          onUpdate: function () {
-            if (obj.y === 0) {
-              deferred.resolve();
-            }
-            window.scroll(0, obj.y);
-          },
-          onComplete: function () {
-            deferred.resolve();
-          }
+        scrollbar.scrollTo(0, 0, 2000, {
+          callback: () => deferred.resolve(),
         });
-  
         return deferred.promise;
       }
     })

@@ -200,17 +200,6 @@ body {
   overflow-y: scroll;
   cursor: none !important; }
 
-body::-webkit-scrollbar {
-  width: 0.3em;
-  background: #0a0a0a; }
-
-body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
-
-body::-webkit-scrollbar-thumb {
-  background-color: #282727;
-  outline: 1px solid slategrey; }
-
 input:focus,
 select:focus,
 textarea:focus,
@@ -577,8 +566,8 @@ header {
 .footer {
   height: 50px;
   width: 100%;
-  position: absolute;
-  bottom: 0; }
+  bottom: 0;
+  margin-top: 5em; }
   .footer .wrapper {
     padding-bottom: 1em;
     height: 100%;
@@ -1109,8 +1098,7 @@ header {
   .services-wrapper {
     width: 320px; } }
 
-.viewport {
-  overflow: hidden;
+#main-scrollbar {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -1118,16 +1106,6 @@ header {
   left: 0;
   right: 0;
   bottom: 0; }
-
-.scroll-container {
-  position: absolute;
-  overflow: hidden;
-  z-index: 10;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  width: 100%; }
 
 /* Main Content */
 .main-content {

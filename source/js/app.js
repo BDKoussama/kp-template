@@ -16,7 +16,13 @@ import Modal from './modules/Modal';
 
 // onDom content load event 
 document.addEventListener("DOMContentLoaded", function (event) {
+  // Barbajs Initialisation -----------------------------//
+  Barba.Pjax.Cache.reset()
+  Barba.Pjax.init();
+  Barba.Prefetch.init();
+  // Image Lazy Load Configuration ----------------------//
   let lazyLoadConfig = { elements_selector: ".lazy" } ;
+  // Swiper js Configuration ----------------------------//
   let swiperConfig = {
     loop: true,
     slidesPerView: 2,
@@ -43,15 +49,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
   };
   let html = document.documentElement;
   let body = document.body;
-  // Barbajs Initialisation ***********************//
-  Barba.Pjax.Cache.reset()
-  Barba.Pjax.init();
-  Barba.Prefetch.init();
-  // init Custom cursor 
+  // init Custom cursor ---------------------------------//
   const cursor = new Cursor();
-  // init modal 
+  // init modal -----------------------------------------//
   const modal = new Modal(document.querySelector('.overlay'));
-  // on new page ready barba.Js Event
+  // on new page ready barba.Js Event -------------------//
   Barba.Dispatcher.on('newPageReady', function (currentStatus, oldStatus, container) {
     // update all links for the hover effect 
     cursor.getLinks();
@@ -61,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let myLazyLoad = new LazyLoad(lazyLoadConfig);
     // init Swiper js 
     let swiper = container.getAttribute('data-namespace') === 'work-page' ? new Swiper(container.querySelector('.swiper-container'), swiperConfig ) : null;
-    //if(container.querySelector('.viewport').getAttribute('data-page') === 'works-page')
+    // Smooth Scroll Configuration -------------------- // 
     let scroller = {
       target: container.querySelector("#scroll-container"), // scroll container 
       ease: 0.05, // <= scroll speed
@@ -76,8 +78,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
       rotation: 0.01,
       force3D: true
     });
-
-
 
     function onLoad() {
       setTimeout(() => onResize(), 100);
@@ -146,10 +146,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     onClickLinkCheck();
 
   });
-
-  // *********************************************// 
-
-
+  // boolean for page Transitions Animation 
   let isAnimating = false;
   // Services Horizontal scroll ( About section )
   let servicesSection = () => {
@@ -162,28 +159,65 @@ document.addEventListener("DOMContentLoaded", function (event) {
       })
     })
   }
+  // init serviceSection
   servicesSection();
-
+  // function to get the New URL
   let getNewUrl = function () {
     // returns the link File or page ex 2.html
     return Barba.HistoryManager.currentStatus();
   }
+  // get Previous URL
   let getPrevUrl = function () {
     // returns the link File or page ex 2.html
     return Barba.HistoryManager.prevStatus();
   }
+  // show Preloader between Transitions 
+  let preLoader = function(){
+    let coverTimeline = new TimelineMax();
+    function init(){
+      TweenLite.set('.cover', { x: '-120%' });
+    }
+    function show(deferred){ 
+      coverTimeline.to('.cover', 1 , {
+        x: '0%',
+        ease: Power0.easeNone,
+        force3D: false,
+        onComplete: function () {
+          deferred.resolve();
+        }
+      });
+    }
+    function remove(){
+        coverTimeline.to('.cover', 1 , {
+          x: '120%',
+          ease: Power0.easeNone,
+          force3D: false
+        });
+    }
+      return{
+        init : init,
+        show: show,
+        remove : remove
+      }
+  }();
 
-  // Barbajs Transitions ************************* //
+  // Barbajs Transitions --------------------------//
 
   let Transitions = {
     CommonTransition: Barba.BaseTransition.extend({
       start: function () {
         isAnimating = true;
         Promise
-          .all([this.newContainerLoading, Transitions.scrollTop()])
-          .then(this.display.bind(this));
+          .all([this.newContainerLoading, this.showPreloader()])
+          .then(this.hidePreloader.bind(this));
       },
-      display: function () {
+      showPreloader: function(){
+        var deferred = Barba.Utils.deferred();
+          preLoader.init();
+          preLoader.show(deferred);
+          return deferred.promise;
+      },
+      hidePreloader: function(){
         var _this = this;
         var tl = new TimelineMax({
           onComplete: function () {
@@ -193,7 +227,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
           }
         });
         TweenLite.set(this.newContainer, {
-          position: 'fixed',
           visibility: 'visible',
           top: 0,
           right: 0,
@@ -203,20 +236,27 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
         tl.add('start');
         // hide old container 
-        tl.to(this.oldContainer, 0.8, {  opacity: 0 }, 'start');
+        tl.to(this.oldContainer, 0.2, {  autoAlpha: 0 }, 'start');
+        preLoader.remove();
         tl.add('next');
         // show new Container
-        tl.to(this.newContainer, 0.4, {  opacity: 1 }, 'next');
+        tl.to(this.newContainer, 0.8, {  autoAlpha: 1 }, 'next');
       }
     }),
-    ContactTransition: Barba.BaseTransition.extend({
+    ToContact: Barba.BaseTransition.extend({
       start: function () {
         isAnimating = true;
         Promise
-          .all([this.newContainerLoading, Transitions.scrollTop()])
-          .then(this.display.bind(this));
+          .all([this.newContainerLoading, this.showPreloader()])
+          .then(this.hidePreloader.bind(this));
       },
-      display: function () {
+      showPreloader: function(){
+        var deferred = Barba.Utils.deferred();
+          preLoader.init();
+          preLoader.show(deferred);
+          return deferred.promise;
+      },
+      hidePreloader: function(){
         var _this = this;
         var tl = new TimelineMax({
           onComplete: function () {
@@ -239,7 +279,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         TweenLite.set(sectionTitle, { yPercent: 120 });
         TweenLite.set(contactInfo, { yPercent: 150 })
         tl.add('start');
-        tl.to(this.oldContainer, 0.8, { autoAlpha: 0 }, 'start');
+        tl.to(this.oldContainer, 0.2, { autoAlpha: 0 }, 'start');
+        preLoader.remove();
         tl.add('next');
         tl.to(this.newContainer, 0.4, { opacity: 1 }, 'next');
         tl.add('after')
@@ -251,14 +292,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return nextPage === 'contact.html';
       }
     }),
-    AboutTransition: Barba.BaseTransition.extend({
+    ToAbout: Barba.BaseTransition.extend({
       start: function () {
         isAnimating = true;
         Promise
-          .all([this.newContainerLoading, Transitions.scrollTop()])
-          .then(this.display.bind(this));
+          .all([this.newContainerLoading, this.showPreloader()])
+          .then(this.hidePreloader.bind(this));
       },
-      display: function () {
+      showPreloader: function(){
+        var deferred = Barba.Utils.deferred();
+          preLoader.init();
+          preLoader.show(deferred);
+          return deferred.promise;
+      },
+      hidePreloader: function () {
         var _this = this;
         var tl = new TimelineMax({
           onComplete: function () {
@@ -285,7 +332,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         TweenLite.set(hLayer, { xPercent: -101, opacity: 1 });
         TweenLite.set(heroName, { opacity: 0 });
         tl.add('start');
-        tl.to(this.oldContainer, 0.8, { autoAlpha: 0 }, 'start');
+        tl.to(this.oldContainer, 0.2, { autoAlpha: 0 }, 'start');
+        preLoader.remove();
         tl.add('next');
         tl.to(this.newContainer, 0.4, { autoAlpha: 1 }, 'next');
         tl.add('after');
@@ -299,14 +347,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return nextPage === 'about.html';
       }
     }),
-    ProjectTransition: Barba.BaseTransition.extend({
+    HomeToProject: Barba.BaseTransition.extend({
       start: function () {
         isAnimating = true;
         Promise
-          .all([this.newContainerLoading, Transitions.scrollTop()])
-          .then(this.display.bind(this));
+          .all([this.newContainerLoading, this.showPreloader()])
+          .then(this.hidePreloader.bind(this));
       },
-      display: function () {
+      showPreloader: function(){
+        var deferred = Barba.Utils.deferred();
+          preLoader.init();
+          preLoader.show(deferred);
+          return deferred.promise;
+      },
+      hidePreloader: function () {
         var _this = this;
         var tl = new TimelineMax({
           onComplete: function () {
@@ -327,7 +381,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let bannerImg = this.newContainer.querySelector('.banner-img');
         TweenLite.set(bannerImg, { scale: 1.5 });
         tl.add('start');
-        tl.to(this.oldContainer, 0.8, { opacity: 0 }, 'start');
+        tl.to(this.oldContainer, 0.2, { opacity: 0 }, 'start');
+        preLoader.remove();
         tl.add('next');
         tl.to(this.newContainer, 0.4, { opacity: 1 }, 'next');
         tl.add('after');
@@ -339,57 +394,85 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return nextPage.includes('project') && prevPage !== 'project-page' ;
       }
     }),
-    scrollTop: function () {
-      var deferred = Barba.Utils.deferred();
-      var obj = {
-        y: window.pageYOffset
-      };
-
-      TweenLite.to(obj, 0.4, {
-        y: 0,
-        onUpdate: function () {
-          if (obj.y === 0) {
+    NextProject: Barba.BaseTransition.extend({
+      start : function(){
+        isAnimating = true;
+        Promise
+          .all([this.newContainerLoading, this.scrollTop()])
+          .then(this.display.bind(this));
+      },
+      display: function(){
+        var _this = this;
+        var tl = new TimelineMax({
+          onComplete: function () {
+            _this.newContainer.style.position = 'static';
+            _this.done();
+            isAnimating = false;
+          }
+        });
+        TweenLite.set(this.newContainer, {
+          position: 'fixed',
+          visibility: 'visible',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          opacity: 0,
+        });
+        let bannerImg = this.newContainer.querySelector('.banner-img');
+        TweenLite.set(bannerImg, { scale: 1.5 });
+        tl.add('start');
+        tl.to(this.oldContainer, 0.2, { opacity: 0 }, 'start');
+        tl.add('next');
+        tl.to(this.newContainer, 0.4, { opacity: 1 }, 'next');
+        tl.add('after');
+        tl.to(bannerImg, 1.5, { scale: 1, ease: Circ.easeOut }, 'after');
+      },
+      isValid: function(){
+        let nextPage =   getNewUrl().url.split('/').pop();
+        let prevPage = getPrevUrl();
+        return nextPage.includes('project') && prevPage.namespace === 'project-page' ;
+      },
+      scrollTop: function () {
+        var deferred = Barba.Utils.deferred();
+        var obj = {
+          y: window.pageYOffset
+        };
+  
+        TweenLite.to(obj, 0.4, {
+          y: 0,
+          onUpdate: function () {
+            if (obj.y === 0) {
+              deferred.resolve();
+            }
+            window.scroll(0, obj.y);
+          },
+          onComplete: function () {
             deferred.resolve();
           }
-
-          window.scroll(0, obj.y);
-        },
-        onComplete: function () {
-          deferred.resolve();
-        }
-      });
-
-      return deferred.promise;
-    }
-  }
-
-  let tweenCover = _ =>{
-    let coverTimeline = new TimelineMax();
-    TweenLite.set('.cover', { x: '-120%' });
-    coverTimeline.add('start');
-    coverTimeline.to('.cover', 1.2 , {
-      x: '120%',
-      ease: Power0.easeNone,
-      force3D: false
-    });
-  }
+        });
   
+        return deferred.promise;
+      }
+    })
+  }
+
+  // Return valid Transition ----------------- //
   Barba.Pjax.getTransition = function () { 
-    if (Transitions.AboutTransition.isValid()) {  
-      tweenCover()
-      return Transitions.AboutTransition;
+    if (Transitions.ToAbout.isValid()) {  
+      return Transitions.ToAbout;
     } 
-    if (Transitions.ContactTransition.isValid()) {
-      tweenCover()
-      return Transitions.ContactTransition;
+    if (Transitions.NextProject.isValid()) {  
+      return Transitions.NextProject;
     } 
-    if (Transitions.ProjectTransition.isValid()) {
-      tweenCover()
-      return Transitions.ProjectTransition;
+    if (Transitions.ToContact.isValid()) {
+      return Transitions.ToContact;
+    } 
+    if (Transitions.HomeToProject.isValid()) {
+      return Transitions.HomeToProject;
     }
-    tweenCover()
     return Transitions.CommonTransition;
   };
-
+  // start Barbajs 
   Barba.Pjax.start();
 });

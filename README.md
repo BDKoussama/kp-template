@@ -17,6 +17,7 @@ a Static Html & css , Javascript Template with different page transitions and an
 - [Barbajs](http://barbajs.org/) by Luigi De Rosa (luruke)
 - [TweenMax](https://greensock.com/tweenmax) by Greensock
 - [Charming](https://github.com/yuanqing/charming) by Yuan Qing
+- [Smooth Scrollbar](https://idiotwu.github.io/smooth-scrollbar/) by Dolphin Wood
 - Images from [Unsplash.com](https://unsplash.com/)
 
 

@@ -14,6 +14,7 @@ import Cursor from './modules/Cursor';
 import Swiper from 'swiper';
 import LazyLoad from "vanilla-lazyload";
 import Modal from './modules/Modal';
+import charming from 'charming';
 
 // onDom content load event 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -88,8 +89,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
       }    
 
-      servicesSection();
-
+    servicesSection();
     function onClickLinkCheck() {
       let allLinks = Array.from(document.querySelectorAll('a[href]'));
       let preventSameLinkClick = function (e) {
@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   
     onClickLinkCheck();
-
   });
   // boolean for page Transitions Animation 
   let isAnimating = false;
@@ -148,7 +147,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         remove : remove
       }
   }();
-
+  let SplitTitle = function(projectTitle){
+    let titleLetters = projectTitle.querySelectorAll('span');
+    [...titleLetters].forEach(element => {
+      const newDiv = document.createElement("div");
+      newDiv.classList.add('letterWrapper');
+      newDiv.appendChild(element);
+      projectTitle.appendChild(newDiv);
+  });
+  }
   // Barbajs Transitions --------------------------//
 
   let Transitions = {
@@ -327,7 +334,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
           opacity: 0,
         });
         let bannerImg = this.newContainer.querySelector('.banner-img');
+        let projectTitle = this.newContainer.querySelector('.project-title--wrapper h1');
+        charming( projectTitle , { classPrefix: 'letter' } );
+        SplitTitle(projectTitle);
         TweenLite.set(bannerImg, { scale: 1.5 });
+        TweenLite.set('.letterWrapper span' , { yPercent: '100%' , autoAlpha: 0})
         tl.add('start');
         tl.to(this.oldContainer, 0.2, { opacity: 0 }, 'start');
         preLoader.remove();
@@ -335,6 +346,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         tl.to(this.newContainer, 0.4, { opacity: 1 }, 'next');
         tl.add('after');
         tl.to(bannerImg, 1.5, { scale: 1, ease: Circ.easeOut }, 'after');
+        tl.staggerTo('.letterWrapper span', 0.4, { yPercent: 0 ,autoAlpha: 1 ,ease: Circ.easeOut }, 0.1 , 'after');
       },
       isValid : function(){
         let nextPage =   getNewUrl().url.split('/').pop();
@@ -368,13 +380,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
           opacity: 0,
         });
         let bannerImg = this.newContainer.querySelector('.banner-img');
+        let projectTitle = this.newContainer.querySelector('.project-title--wrapper h1');
+        charming( projectTitle , { classPrefix: 'letter' } );
+        SplitTitle(projectTitle);
         TweenLite.set(bannerImg, { scale: 1.5 });
+        TweenLite.set('.letterWrapper span' , { yPercent: '100%' , autoAlpha: 0})
         tl.add('start');
         tl.to(this.oldContainer, 0.2, { opacity: 0 }, 'start');
         tl.add('next');
         tl.to(this.newContainer, 0.4, { opacity: 1 }, 'next');
         tl.add('after');
         tl.to(bannerImg, 1.5, { scale: 1, ease: Circ.easeOut }, 'after');
+        tl.staggerTo('.letterWrapper span', 0.4, { yPercent: 0 ,autoAlpha: 1 ,ease: Circ.easeOut }, 0.1 , 'after');
       },
       isValid: function(){
         let nextPage =   getNewUrl().url.split('/').pop();

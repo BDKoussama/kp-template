@@ -104,7 +104,6 @@
 .projects-nav
     text-align: center
     padding: 1.5em 0
-    margin-bottom: 8em
 .next-project--wrapper
     display: inline-block
     padding: 0.5em
@@ -121,15 +120,23 @@
     .about 
         flex-wrap: wrap 
         padding: 1.5em
+    .about-project
+        margin: 2em 0
     .project-description 
         width: 100%
         margin-top: 1.4em
+        text-align: justify
     .project-details
         width: 100%
         order: -1
     .project-title
         padding: 1.5em
-    .big-image-1
-        transform: none 
-        height: 80vh 
-        margin: 1em 0 
+    .img-container
+        height: 50vh
+    .img-container--double
+        flex-wrap: wrap 
+        .first-img,
+        .second-img
+            width: 100%
+        .first-img
+            margin-bottom: 80px

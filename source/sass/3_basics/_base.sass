@@ -8,7 +8,6 @@ html
 *:after
   box-sizing: inherit
 
-
 body
   //delete the background to apply your own style
   font-size: 14px
@@ -64,9 +63,13 @@ li
     width: 100%
     position: absolute
     top: 0
+    left: 0 
+    right: 0
     z-index: 99999 !important
     background: $white
     transform: translateX(-120%)
 @media only screen and (min-device-width : 320px) and (max-device-width : 780px) 
     body 
       overflow-x: hidden
+    .cover
+      position: relative
